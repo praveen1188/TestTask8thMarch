@@ -17,7 +17,31 @@ export default class TestTask8thMarch extends Component {
     };
   }
    componentWillMount() {
-    //this.callLoginApi()
+    this.callLoginApi()
+  }
+  callLoginApi() {
+
+    fetch(
+      'https://itunes.apple.com/us/rss/topfreeapplications/limit=20/json',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'GET',
+
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+         xyz=responseJson.feed.entry
+         console.log('\n\n\n\nn\n\n\n\n\n\n\n');
+         console.log(responseJson.feed.entry);
+         console.log('\n\n\n\nn\n\n\n\n\n\n\n');
+         console.log(xyz);
+         this.setState({dataSource: ds.cloneWithRows(responseJson.feed.entry)})
+      })
+      .catch( function( error ) {
+        console.log('Error is response')
+      });
   }
 
   render() {
